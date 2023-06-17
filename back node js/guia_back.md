@@ -18,4 +18,14 @@ se arranca con npm run dev
 # index.js-> es el archivo principal
 # config-> es la carpeta donde se configura la conexion con la base de datos 
 # models-> es la carpeta donde se crean los modelos de la base de datos
-models/veterinario.js-> es el modelo de veterinario en mongose
+models/veterinario.js-> es el modelo de veterinario en mongose 
+# routes-> es la carpeta donde se crean las rutas de la api
+routes/veterinariosRoutes.js-> es la ruta de veterinarios 
+# controllers-> es la carpeta donde se crean los controladores de la api
+controllers/veterinariosControllers.js-> es el controlador de veterinarios 
+
+# notas importantes
+
+-- se debe elimianr la bases de datos que se crea cuando se inicia el servidor en mongoatlas direente ala que se creo en este caso era {test}
+-- BROUSER COLECTION -> se elimina direcamente del servidor de mongo atlas
+luego se desmonta el servidor y  se reinicia el servidor para que se cree la base de datos con el modelo de veterinario

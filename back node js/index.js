@@ -5,6 +5,7 @@ import VeterinarioRoutes from "./routes/VeterinarioRoutes.js";
 
 // creacion del servidor
 const app = express();
+app.use(express.json()); // para que el servidor pueda recibir json
 dotenv.config();
 connectDB();
 // ruta principal de  la api de veterinario

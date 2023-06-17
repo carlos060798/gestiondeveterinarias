@@ -1,4 +1,5 @@
 import mongoose from "mongoose"; 
+import generarID from "../helpers/generarID.js";
 
 // veterinarioSchema es el nombre del esquema de la base de datos de veterinarios 
 const veterinarioSchema = mongoose.Schema({
@@ -28,6 +29,7 @@ const veterinarioSchema = mongoose.Schema({
       },
       token: {
         type: String,
+        default: generarID(), //genera un token aleatorio
       },
       confirmado: {
         type: Boolean,

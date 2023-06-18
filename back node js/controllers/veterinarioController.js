@@ -1,5 +1,6 @@
 // función para controlar las operaciones crud de veterinario
 import Veterinario from "../Models/Veterinarios.js";
+import generarWTJ from "../helpers/generarJWT.js";
 
 //función para registrar un veterinario
 const Registrar = async (req, res) => {
@@ -66,11 +67,12 @@ const Autenticar = async (req, res) => {
     return res.status(403).json({ msg: error.message }); //envia un mensaje de usuario no encontrado
   }
   // revisar si el password es correcto
-  console.log(password);
-  if ( await usuario.compararContraseña(password)) {
-    console.log("password correcto");
+
+  if ( await usuario.compararContraseña(password)) {//compara el password proporcionado con el password del usuario
+    res.json({token: generarWTJ(usuario.id)}); // genera el token y lo envia
   } else {
-    console.log("password incorrecto");
+    const error = new Error("password incorrecto"); //crea un nuevo error
+    return res.status(403).json({ msg: error.message }); //envia un mensaje de usuario no encontrado
   }
 };
 export { Registrar, Perfil, Confirmar, Autenticar };

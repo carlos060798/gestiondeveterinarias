@@ -16,7 +16,8 @@ se arranca con npm run dev
 
 6 se instala bcrypt para encriptar las contraseñas
 --npm i bcrypt
-
+7 se instala jsonwebtoken para generar el token
+--npm i jsonwebtoken
 # estructura de carpetas
 # index.js-> es el archivo principal
 # config-> es la carpeta donde se configura la conexion con la base de datos 
@@ -27,9 +28,18 @@ routes/veterinariosRoutes.js-> es la ruta de veterinarios
 # controllers-> es la carpeta donde se crean los controladores de la api
 controllers/veterinariosControllers.js-> es el controlador de veterinarios 
 # helpers-> es la carpeta donde se crean las funciones de ayuda
-generarJWT.js-> es la funcion que genera el token
+generarid.js-> es la funcion que genera el id de la base de datos
+genrerarJWT.js-> es la funcion que genera el token 
+
+# middlewares-> es la carpeta donde se crean los middlewares de la api
+auth.js->  maneja la intermediacion de la ruta del perfil de usuario
 # notas importantes
 
--- se debe elimianr la bases de datos que se crea cuando se inicia el servidor en mongoatlas direente ala que se creo en este caso era {test}
+# 1 -- se debe eliminar la bases de datos que se crea cuando se inicia el servidor en mongoatlas direente ala que se creo en este caso era {test}
 -- BROUSER COLECTION -> se elimina direcamente del servidor de mongo atlas
 luego se desmonta el servidor y  se reinicia el servidor para que se cree la base de datos con el modelo de veterinario
+
+
+# 2 -- se debe crear  una nueva variable de entorno en el archivo .env llamada  JWT_SECRET y se le asigna un valor  para que funcione  JWT en la funcion de genrarJWR
+
+# 3-- los middlewares son funciones que se ejecutan antes de que lleguen a las rutas finales para generar una maniculacion entre la peticion y la respuesta se consideran intermediadores

@@ -23,12 +23,15 @@ const Registrar = async (req, res) => {
     console.log(error);
   }
 };
+// funcion para obtener el perfil del veterinario una vez validado
+const Perfil = (req, res) => { 
+ const {veterinario}= req;
+  res.json({perfil:veterinario});
+}; 
 
-const Perfil = (req, res) => {
-  res.json({ msg: "Ruta de veterinario /perfil" });
-}; //
 
 //función para confirmar la cuenta de un veterinario via token
+
 const Confirmar = async (req, res) => {
   const { token } = req.params; //obtiene el token de la url
   const usuarioconfirmar = await Veterinario.findOne({ token }); //busca un usuario con el mismo token
@@ -51,6 +54,7 @@ const Confirmar = async (req, res) => {
   }
 };
 
+//función para autenticar un veterinario
 const Autenticar = async (req, res) => {
   const { email,
     password } = req.body;

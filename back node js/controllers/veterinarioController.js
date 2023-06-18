@@ -42,7 +42,7 @@ const Confirmar = async (req, res) => {
   try {
     //actualizar el usuario
     usuarioconfirmar.token = null; //elimina el token del usuario
-    usuarioconfirmar.confirmado= true; //actualiza el estado del usuario a activo
+    usuarioconfirmar.confirmado = true; //actualiza el estado del usuario a activo
     await usuarioconfirmar.save(); //guarda los cambios
     res.json({ msg: "cuenta confirmada " });
   } catch (error) {
@@ -50,4 +50,27 @@ const Confirmar = async (req, res) => {
   }
 };
 
-export { Registrar, Perfil, Confirmar };
+const Autenticar = async (req, res) => {
+  const { email,
+    password } = req.body;
+
+  // confirmar  si existe el usuario con el email proporcionado
+  const usuario = await Veterinario.findOne({ email }); //busca un usuario con el mismo email
+  if (!usuario) {
+    const error = new Error("El usuario no existe"); //crea un nuevo error
+    return res.status(404).json({ msg: error.message }); //envia un mensaje de usuario no encontrado
+  }
+  // verificar si el usuario esta confirmado
+  if (!usuario.confirmado) {
+    const error = new Error("tu cuenta no ha sido confirmada"); //crea un nuevo error
+    return res.status(403).json({ msg: error.message }); //envia un mensaje de usuario no encontrado
+  }
+  // revisar si el password es correcto
+  console.log(password);
+  if ( await usuario.compararContraseña(password)) {
+    console.log("password correcto");
+  } else {
+    console.log("password incorrecto");
+  }
+};
+export { Registrar, Perfil, Confirmar, Autenticar };

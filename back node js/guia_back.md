@@ -14,6 +14,9 @@ se arranca con npm run dev
 5- se instala dotenv para las variables de entorno
 --npm i dotenv
 
+6 se instala bcrypt para encriptar las contraseñas
+--npm i bcrypt
+
 # estructura de carpetas
 # index.js-> es el archivo principal
 # config-> es la carpeta donde se configura la conexion con la base de datos 
@@ -23,7 +26,8 @@ models/veterinario.js-> es el modelo de veterinario en mongose
 routes/veterinariosRoutes.js-> es la ruta de veterinarios 
 # controllers-> es la carpeta donde se crean los controladores de la api
 controllers/veterinariosControllers.js-> es el controlador de veterinarios 
-
+# helpers-> es la carpeta donde se crean las funciones de ayuda
+generarJWT.js-> es la funcion que genera el token
 # notas importantes
 
 -- se debe elimianr la bases de datos que se crea cuando se inicia el servidor en mongoatlas direente ala que se creo en este caso era {test}

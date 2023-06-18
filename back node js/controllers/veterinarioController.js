@@ -1,6 +1,7 @@
 // función para controlar las operaciones crud de veterinario
 import Veterinario from "../Models/Veterinarios.js";
 import generarWTJ from "../helpers/generarJWT.js";
+import generarID from "../helpers/generarID.js";
 
 //función para registrar un veterinario
 const Registrar = async (req, res) => {
@@ -78,5 +79,30 @@ const Autenticar = async (req, res) => {
     const error = new Error("password incorrecto"); //crea un nuevo error
     return res.status(403).json({ msg: error.message }); //envia un mensaje de usuario no encontrado
   }
-};
-export { Registrar, Perfil, Confirmar, Autenticar };
+}; 
+
+// funciones para recueprar contraseña de usuarios
+
+const olvidarContraseña = async (req, res) => { // funciones para recueprar contraseña de usuarios
+ const {email}= req.body; //obtiene el email del usuario
+
+  const  existeVeterinario= await  Veterinario.findOne({email}); //obtiene el email del usuario
+  if(!existeVeterinario){ // valida que existe el email del usuario
+    // si no existe el email del usuario
+    const error = new Error("El usuario no existe"); //crea un nuevo error
+    return res.status(400).json({ msg: error.message }); //envia un mensaje de usuario no encontrado
+  }
+  // si coincide el email del usuario
+  try{
+  existeVeterinario.token=generarID(); // genera un token segun el id del usuario
+  await existeVeterinario.save(); // guarda el token en la base de datos
+  res.json({msg:"se ha enviado un correo para restablecer la contraseña"}); // guarda el token en la base de datos
+
+  }catch(err){
+    console.log(err);
+  }
+}
+const Comprobartoken = async (req, res) => {}
+
+const Nuevotoken = async (req, res) => {}
+export { Registrar, Perfil, Confirmar, Autenticar, olvidarContraseña, Comprobartoken, Nuevotoken  };

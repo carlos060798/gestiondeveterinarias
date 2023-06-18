@@ -2,6 +2,7 @@
 import Veterinario from "../Models/Veterinarios.js";
 import generarWTJ from "../helpers/generarJWT.js";
 import generarID from "../helpers/generarID.js";
+import e from "express";
 
 //función para registrar un veterinario
 const Registrar = async (req, res) => {
@@ -102,7 +103,40 @@ const olvidarContraseña = async (req, res) => { // funciones para recueprar con
     console.log(err);
   }
 }
-const Comprobartoken = async (req, res) => {}
+const Comprobartoken = async (req, res) => { // funciones para  validar el token en la base de datos
+const {token} = req.params; // obtiene el token de la url
 
-const Nuevotoken = async (req, res) => {}
-export { Registrar, Perfil, Confirmar, Autenticar, olvidarContraseña, Comprobartoken, Nuevotoken  };
+const tokenValido= await Veterinario.findOne({token}); // busca el token en la base de datos
+if(tokenValido){ // se valida si existe el token
+  res.json({msg:"el token  es valido usuario existe"});
+}else{ // si no existe el token
+  const error = new Error("El token no es valido"); //crea un nuevo error
+  return res.status(400).json({ msg: error.message }); //envia un mensaje de usuario no encontrado
+}
+console.log(token);
+
+
+
+
+}
+
+const   newPassword = async (req, res) => {
+ const { token } = req.params;
+ const {password } = req.body
+
+ const veterinario= await Veterinario.findOne({token});
+if(!veterinario){
+  const error = new Error("El token no es valido"); //crea un nuevo error
+  return res.status(400).json({ msg: error.message }); //envia un mensaje de usuario no encontrado
+}
+try{
+ veterinario.token=null;
+ veterinario.password = password
+ await veterinario.save();
+ res.json({ msg: "pasword actualizado" });
+ console.log(veterinario);
+}catch(error){
+  console.log(error);
+}
+}
+export { Registrar, Perfil, Confirmar, Autenticar, olvidarContraseña, Comprobartoken,newPassword   };

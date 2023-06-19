@@ -1,12 +1,29 @@
-import express  from "express";
-import { agregarPaciente,obtenerPaciente } from "../controllers/pacienteController.js";
+import express from "express";
+import {
+  agregarPaciente,
+  obtenerPacientes,
+    obtenerPaciente,
+    actualizarPaciente,
+    eliminarPaciente
+} from "../controllers/pacienteController.js";
 import checkAuth from "../middleware/authMiddleware.js";
 const router = express.Router();
 
-// rutas del paciente 
+// rutas del paciente
 /**
- *  checkAuth es para proteger la ruta de agregar paciente y obtener 
+ *  checkAuth es para proteger la ruta de agregar paciente y obtener
  */
-router.route("/").post( checkAuth,agregarPaciente).get(obtenerPaciente);
+// operaciones generles del crud 
+router
+  .route("/")
+  .post(checkAuth, agregarPaciente)
+  .get(checkAuth, obtenerPacientes);
+
+// operaciones del crud 
+router
+  .route("/:id")
+  .get(checkAuth, obtenerPaciente)
+  .put(checkAuth, actualizarPaciente)
+  .delete(checkAuth, eliminarPaciente); // obtener paciente por id
 
 export default router;

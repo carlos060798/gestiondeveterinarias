@@ -18,21 +18,29 @@ se arranca con npm run dev
 --npm i bcrypt
 7 se instala jsonwebtoken para generar el token
 --npm i jsonwebtoken
+
+
 # estructura de carpetas
+
 # index.js-> es el archivo principal
 # config-> es la carpeta donde se configura la conexion con la base de datos 
 # models-> es la carpeta donde se crean los modelos de la base de datos
 models/veterinario.js-> es el modelo de veterinario en mongose 
+models/pacientes.js-> es el modelo de pacientes en mongose
 # routes-> es la carpeta donde se crean las rutas de la api
 routes/veterinariosRoutes.js-> es la ruta de veterinarios 
+routes/pacientesRoutes.js-> es la ruta de pacientes
 # controllers-> es la carpeta donde se crean los controladores de la api
 controllers/veterinariosControllers.js-> es el controlador de veterinarios 
+controllers/veterinariosControllers.js-> es el controlador de pacientes de
 # helpers-> es la carpeta donde se crean las funciones de ayuda
 generarid.js-> es la funcion que genera el id de la base de datos
 genrerarJWT.js-> es la funcion que genera el token 
 
 # middlewares-> es la carpeta donde se crean los middlewares de la api
 auth.js->  maneja la intermediacion de la ruta del perfil de usuario
+
+
 # notas importantes
 
 # 1 -- se debe eliminar la bases de datos que se crea cuando se inicia el servidor en mongoatlas direente ala que se creo en este caso era {test}
@@ -42,4 +50,6 @@ luego se desmonta el servidor y  se reinicia el servidor para que se cree la bas
 
 # 2 -- se debe crear  una nueva variable de entorno en el archivo .env llamada  JWT_SECRET y se le asigna un valor  para que funcione  JWT en la funcion de genrarJWR
 
-# 3-- los middlewares son funciones que se ejecutan antes de que lleguen a las rutas finales para generar una maniculacion entre la peticion y la respuesta se consideran intermediadores
+# 3-- los middlewares son funciones que se ejecutan antes de que lleguen a las rutas finales para generar una maniculacion entre la peticion y la respuesta se consideran intermediadores 
+
+# 4 -- recordar que en este modelo de base de datos la relacion es veterinario crea pacientes por ende al crear los pasientes se debe referenciar el id de veterinario que lo creo ylo trata esa se considera la llave primaria entre el modelo de veterinario y paciente

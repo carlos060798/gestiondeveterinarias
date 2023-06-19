@@ -1,8 +1,9 @@
 // función para controlar las operaciones crud de veterinario
+import express from "express";
 import Veterinario from "../Models/Veterinarios.js";
 import generarWTJ from "../helpers/generarJWT.js";
 import generarID from "../helpers/generarID.js";
-import e from "express";
+
 
 //función para registrar un veterinario
 const Registrar = async (req, res) => {
@@ -120,19 +121,20 @@ console.log(token);
 
 }
 
-const   newPassword = async (req, res) => {
- const { token } = req.params;
- const {password } = req.body
+const   newPassword = async (req, res) => { // funcion para crear el password
+ const { token } = req.params; // se obtine el token de la url
+ const {password } = req.body // se obtine el  nuevopassword  dado por el usuario
 
- const veterinario= await Veterinario.findOne({token});
-if(!veterinario){
+ const veterinario= await Veterinario.findOne({token}); // se busca el usuario con el token generado
+if(!veterinario){ // si el token no es valido
   const error = new Error("El token no es valido"); //crea un nuevo error
   return res.status(400).json({ msg: error.message }); //envia un mensaje de usuario no encontrado
 }
-try{
- veterinario.token=null;
- veterinario.password = password
- await veterinario.save();
+// si el token  es valido
+try{ // se actualiza el password del usuario
+ veterinario.token=null; // se elimina el valor del token inicial a null
+ veterinario.password = password // se actualiza el password
+ await veterinario.save(); // se actualiza el password en la bd
  res.json({ msg: "pasword actualizado" });
  console.log(veterinario);
 }catch(error){

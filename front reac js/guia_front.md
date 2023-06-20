@@ -6,8 +6,12 @@ npm i --save-dev tailwindcss  postcss autoprefixer
 # instalacion de  react-router-dom para el manejo de rutas en la aplicación
 npm i  react-router-dom  
 
+# intalacion de npm i axios para el manejo de peticiones http con el backend que hizimos
+--- npm i axios
 # ESTRUCTURA DE CARPETAS
-
+ src
+    components-> componentes que se van a renderizar componentes de la aplicación de uso general
+    paginaspublicas-> componentes que se van a renderizar en las rutas publicas y manejo de login y cuenta
 
 # NOTAS DE DESARROLLO 
 

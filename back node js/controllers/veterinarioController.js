@@ -14,7 +14,7 @@ const Registrar = async (req, res) => {
   if (existeUsuario) {
     //si existe un usuario con el mismo email
     const error = new Error("El usuario ya está registrado"); //crea un nuevo error
-    res.status(400).json({ msg: error.message }); //envia un mensaje de error
+     return res.status(400).json({ msg: error.message }); //envia un mensaje de error
   }
 
   try {

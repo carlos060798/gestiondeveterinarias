@@ -18,3 +18,6 @@ Registar.jsx:43 error : AxiosError {message: 'Network Error', name: 'AxiosError
 
 Al usar este middleware, se está permitiendo que las solicitudes se realicen desde cualquier origen, lo que debería solucionar el error de CORS que estabas experimentando
 app.use(cors({ origin: '*' }))
+
+
+# para el envio de  email se reuqiere crear una cuenta en  mailstrap para emular el envio de email cuando se le mande un correo a un usuario

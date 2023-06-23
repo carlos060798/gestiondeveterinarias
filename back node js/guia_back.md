@@ -20,6 +20,7 @@ se arranca con npm run dev
 --npm i jsonwebtoken
 
 
+
 # estructura de carpetas
 
 # index.js-> es el archivo principal

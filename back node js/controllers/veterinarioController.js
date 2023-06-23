@@ -3,11 +3,12 @@ import express from "express";
 import Veterinario from "../Models/Veterinarios.js";
 import generarWTJ from "../helpers/generarJWT.js";
 import generarID from "../helpers/generarID.js";
+import sendEmailRegistro from "../helpers/emailRegistro.js";
 
 
 //función para registrar un veterinario
 const Registrar = async (req, res) => {
-  const { email } = req.body;
+  const { email,nombre} = req.body;
   // prevenir usuarios duplicados
   const existeUsuario = await Veterinario.findOne({ email }); //busca un usuario con el mismo email
 
@@ -20,8 +21,17 @@ const Registrar = async (req, res) => {
   try {
     // guardar  nuevo usuario
     const nuevoveterinario = new Veterinario(req.body); //crea un nuevo usuario
-    const veterinarioguardado = await nuevoveterinario.save(); //guarda el usuario en la base de datos
-    res.json({ msg: "usuario registrado correctamente" }); //envia un mensaje de confirmación
+    const Veterinarioguardado = await nuevoveterinario.save(); //guarda el usuario en la base de datos
+    // enviar email de confirmación
+  sendEmailRegistro({
+    email,
+    nombre,
+    token: Veterinarioguardado.token,
+  })
+
+
+
+    res.json({Veterinarioguardado}); //envia un mensaje de confirmación
   } catch (error) {
     console.log(error);
   }

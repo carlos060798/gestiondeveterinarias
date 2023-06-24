@@ -52,7 +52,7 @@ const Confirmar = async (req, res) => {
   // verificar si existe el  token del usuario
   if (!usuarioconfirmar) {
     //si no existe un usuario con el mismo token
-    const error = new Error("No existe un usuario con el token proporcionado"); //crea un nuevo error
+    const error = new Error("Token no valido"); //crea un nuevo error
     return res.status(400).json({ msg: error.message }); //envia un mensaje de error
   }
 

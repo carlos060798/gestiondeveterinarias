@@ -19,7 +19,8 @@ se arranca con npm run dev
 7 se instala jsonwebtoken para generar el token
 --npm i jsonwebtoken
 
-
+8- se instala   nodemailer para enviar correos
+--npm i nodemailer
 
 # estructura de carpetas
 
@@ -53,4 +54,4 @@ luego se desmonta el servidor y  se reinicia el servidor para que se cree la bas
 
 # 3-- los middlewares son funciones que se ejecutan antes de que lleguen a las rutas finales para generar una maniculacion entre la peticion y la respuesta se consideran intermediadores 
 
-# 4 -- recordar que en este modelo de base de datos la relacion es veterinario crea pacientes por ende al crear los pasientes se debe referenciar el id de veterinario que lo creo ylo trata esa se considera la llave primaria entre el modelo de veterinario y paciente
+# 4 -- recordar que en este modelo de base de datos la relacion es veterinario crea pacientes por ende al crear los pasientes se debe referenciar el id de veterinario que lo creo ylo trata esa se considera la llave primaria entre el modelo de veterinario y paciente 

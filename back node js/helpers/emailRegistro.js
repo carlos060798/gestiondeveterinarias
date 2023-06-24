@@ -4,8 +4,9 @@ import nodemailer from 'nodemailer';
 
 
 
- const sendEmailRegistro = async (datos) => {
-  const  transport = nodemailer.createTransport({
+ const sendEmailRegistro = async (datos) => {   // funcion de envio de correo de registro confirmado token
+ //credeniales de mailtrap
+  const  transport = nodemailer.createTransport({ // 
     host: "sandbox.smtp.mailtrap.io",
     port: 2525,
     auth: {
@@ -15,9 +16,9 @@ import nodemailer from 'nodemailer';
   });
  
  
-  const { email, nombre, token } = datos;
+  const { email, nombre, token } = datos;  // datos de usuario
 
-  const info= await transport.sendMail({
+  const info= await transport.sendMail({ // cuerpo de mensaje del correo
     from: "AppVeterinaria",
     to: email,
     subject: "Confirmación de registro",

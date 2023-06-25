@@ -4,6 +4,7 @@ import Veterinario from "../Models/Veterinarios.js";
 import generarWTJ from "../helpers/generarJWT.js";
 import generarID from "../helpers/generarID.js";
 import sendEmailRegistro from "../helpers/emailRegistro.js";
+import sendEmailPassword from "../helpers/emailCambioPass.js";
 
 
 //función para registrar un veterinario
@@ -96,7 +97,8 @@ const Autenticar = async (req, res) => {
 // funciones para recueprar contraseña de usuarios
 
 const olvidarContraseña = async (req, res) => { // funciones para recueprar contraseña de usuarios
- const {email}= req.body; //obtiene el email del usuario
+ 
+  const {email}= req.body; //obtiene el email del usuario
 
   const  existeVeterinario= await  Veterinario.findOne({email}); //obtiene el email del usuario
   if(!existeVeterinario){ // valida que existe el email del usuario
@@ -108,6 +110,18 @@ const olvidarContraseña = async (req, res) => { // funciones para recueprar con
   try{
   existeVeterinario.token=generarID(); // genera un token segun el id del usuario
   await existeVeterinario.save(); // guarda el token en la base de datos
+
+  // enviar email de confirmación de cambio de contraseña
+
+  sendEmailPassword ({
+    email,
+    nombre:existeVeterinario.nombre,
+    token: existeVeterinario.token,
+
+
+  })
+
+
   res.json({msg:"se ha enviado un correo para restablecer la contraseña"}); // guarda el token en la base de datos
 
   }catch(err){

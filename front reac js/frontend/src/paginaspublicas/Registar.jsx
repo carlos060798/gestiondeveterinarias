@@ -40,7 +40,7 @@ function Registar() {
     try {
       const url = "http://localhost:4000/api/veterinario";
       await axios.post(url, { nombre, email, password });
-      setAlerta({ msg: "Cuenta creada correctament", error: false });
+      setAlerta({ msg: "Cuenta creada correctamentamente", error: false });
     } catch (err) {
      setAlerta({ msg:err.response.data.msg, error:true });
     }

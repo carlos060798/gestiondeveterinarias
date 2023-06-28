@@ -5,10 +5,13 @@ import Registar from "./paginaspublicas/Registar";
 import OlvidePassword from "./paginaspublicas/OlvidePassword";
 import ConfirmarCuenta from "./paginaspublicas/Confirmarcuenta";
 import NuevoPass from "./paginaspublicas/NuevoPassword";
+// import AuthContext  se genera la propagacion de  los datos la autenticacion
+import { AuthProvaider } from "./context/AuthProvider";
 function App() {
   return (
     <>
       <Router>
+       <AuthProvaider>
         <Routes>
           <Route path="/" element={<Autlayaut />}>
             <Route index element={<Login />} />
@@ -19,6 +22,7 @@ function App() {
             <Route path="/Confirmar/:id" element={<ConfirmarCuenta/>} />
           </Route>
         </Routes>
+        </AuthProvaider>
       </Router>
     </>
   );

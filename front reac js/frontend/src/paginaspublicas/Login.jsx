@@ -1,5 +1,42 @@
+import { useState } from "react";
 import {Link} from 'react-router-dom' // para manejar las rutas de la aplicacion en login  mejora el performance en lugar de a
+import Alerta from '../components/alerta';
+import useAuth from '../hook/useAuth';
+import axios from 'axios';
+
+
+
 function Login() {
+const [email,setEmail]=useState('');
+const [password,setPassword]=useState('');
+const [alerta,setAlerta]=useState({});
+
+const {msg}=alerta;
+
+ 
+const handleLogin = async(e)=>{
+   e.preventDefault();
+   console.log('hola');
+  if([email,password].includes('')){
+    setAlerta({msg:'Todos los campos son obligatorios',error:true});
+    return;
+  }
+  try{
+  const url='http://localhost:4000/api/veterinario/login';
+  const {data}=await axios.post(url,{email,password});
+  localStorage.setItem('token',data.token);
+
+  console.log(data);
+  }
+  catch(error){
+    setAlerta({msg:error.response.data.msg,error:true});
+   }
+
+}
+
+
+
+  
   return (
     <>
       <div>
@@ -10,7 +47,8 @@ function Login() {
         </h1>
       </div>
       <div className='mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white'>
-        <form>
+        {msg && <Alerta alerta={alerta}/>}
+        <form  onSubmit={handleLogin}>
           <div className="my-5">
             <label className="uppercase text-gray-600 block text-xl font-bold">
               Email
@@ -18,6 +56,8 @@ function Login() {
             <input
               className="border w-full p-3 mt-3 bg-gray-50 rounded-xl"
               type="email"
+              value={email}
+              onChange={e=>setEmail(e.target.value)}
               placeholder="Email de registro"
             />
           </div>
@@ -29,6 +69,8 @@ function Login() {
               className="border w-full p-3 mt-3 bg-gray-50 rounded-xl"
               type="password"
               placeholder="********"
+              value={password}
+              onChange={e=>setPassword(e.target.value)}
             />
           </div>
           <input

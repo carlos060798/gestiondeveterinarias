@@ -40,7 +40,7 @@ const Registrar = async (req, res) => {
 // funcion para obtener el perfil del veterinario una vez validado
 const Perfil = (req, res) => { 
  const {veterinario}= req;
-  res.json({perfil:veterinario});
+  res.json({veterinario});
 }; 
 
 

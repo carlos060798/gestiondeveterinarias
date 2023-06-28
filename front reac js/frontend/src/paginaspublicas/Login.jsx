@@ -1,34 +1,38 @@
 import { useState } from "react";
-import {Link} from 'react-router-dom' // para manejar las rutas de la aplicacion en login  mejora el performance en lugar de a
+import {Link,useNavigate} from 'react-router-dom' // para manejar las rutas de la aplicacion en login  mejora el performance en lugar de a
 import Alerta from '../components/alerta';
 import useAuth from '../hook/useAuth';
 import axios from 'axios';
 
 
 
+
 function Login() {
+// use state para manejar el email y el password
 const [email,setEmail]=useState('');
 const [password,setPassword]=useState('');
 const [alerta,setAlerta]=useState({});
 
 const {msg}=alerta;
 
- 
-const handleLogin = async(e)=>{
+const navigate=useNavigate(); // hook para manejar las rutas de la aplicacion
+const handleLogin = async(e)=>{ // funcion para manejar el login
    e.preventDefault();
-   console.log('hola');
-  if([email,password].includes('')){
+   
+  if([email,password].includes('')){ // validamos que los campos no esten vacios
     setAlerta({msg:'Todos los campos son obligatorios',error:true});
+    
+    
     return;
   }
+  // HACEMOS LA CONSULTA DEL API
   try{
-  const url='http://localhost:4000/api/veterinario/login';
-  const {data}=await axios.post(url,{email,password});
-  localStorage.setItem('token',data.token);
-
-  console.log(data);
+  const url='http://localhost:4000/api/veterinario/login'; // url para hacer la peticion al backend
+  const {data}=await axios.post(url,{email,password}); // hacemos la peticion al backend
+  localStorage.setItem('token',data.token); // guardamos el token en el localstorage
+  navigate('/admin'); // redireccionamos al home
   }
-  catch(error){
+  catch(error){// si hay un error mostramos la alerta de error
     setAlerta({msg:error.response.data.msg,error:true});
    }
 

@@ -12,6 +12,7 @@ function Login() {
 const [email,setEmail]=useState('');
 const [password,setPassword]=useState('');
 const [alerta,setAlerta]=useState({});
+const {setAuth}=useAuth();
 
 const {msg}=alerta;
 
@@ -29,7 +30,9 @@ const handleLogin = async(e)=>{ // funcion para manejar el login
   try{
   const url='http://localhost:4000/api/veterinario/login'; // url para hacer la peticion al backend
   const {data}=await axios.post(url,{email,password}); // hacemos la peticion al backend
+  console.log(data);
   localStorage.setItem('token',data.token); // guardamos el token en el localstorage
+  setAuth(data); // guardamos los datos del usuario en el estado global
   navigate('/admin'); // redireccionamos al home
   }
   catch(error){// si hay un error mostramos la alerta de error

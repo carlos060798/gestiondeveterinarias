@@ -3,18 +3,27 @@ import { createContext, useState,useEffect} from "react";
 import axios from "axios";
 
 
-const AuthContext= createContext();
+const AuthContext= createContext(); // creamos el contexto
 
+/*  Componente para proveer los datos del usuario a todos los componentes hijos 
+  <AuthContext.Provider value={{auth,setAuth,cargando,cerrarSesion}}> 
+         {children}
+       </AuthContext.Provider>
+*/
 
 function AuthProvaider({children}) {
+   const [cargando, setCargado] = useState(true); // estado para saber si ya se hizo la peticion al backend
     const [auth, setAuth] = useState({});
 
 
-  useEffect(() => {
+  useEffect(() => {  // funcion para hacer la peticion al backend
     const autenticarUsuario = async () => {
       const token = localStorage.getItem("token"); // obtenemos el token del localstorage
 
-      if (!token) return; // si no hay token no hacemos nada
+      if (!token){
+        setCargado(false); // cambiamos el estado para saber que ya se hizo la peticion
+        return
+      }  // si no hay token no hacemos nada
       const config = { // creamos la configuracion para enviar el token por headers
         headers: {
           "Content-Type": "application/json",
@@ -30,11 +39,17 @@ function AuthProvaider({children}) {
        console.error(error.reposnse.data.msg);
        setAuth({}); // si hay un error limpiamos el estado global
       }
+      setCargado(false); // cambiamos el estado para saber que ya se hizo la peticion
   }
   autenticarUsuario()
 }, [])
+  const cerrarSesion=()=>{ // funcion para cerrar sesion del localstorage y del estado global
+    localStorage.removeItem('token'); // removemos el token del localstorage
+    setAuth({}); // limpiamos el estado global
+ 
+  }
     return ( <>
-       <AuthContext.Provider value={{auth,setAuth}}> 
+       <AuthContext.Provider value={{auth,setAuth,cargando,cerrarSesion}}> 
          {children}
        </AuthContext.Provider>
     </> );

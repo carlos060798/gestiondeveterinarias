@@ -40,7 +40,7 @@ const Registrar = async (req, res) => {
 // funcion para obtener el perfil del veterinario una vez validado
 const Perfil = (req, res) => { 
  const {veterinario}= req;
-  res.json({veterinario});
+  res.json(veterinario);
 }; 
 
 
@@ -87,12 +87,21 @@ const Autenticar = async (req, res) => {
   // revisar si el password es correcto
 
   if ( await usuario.compararContraseña(password)) {//compara el password proporcionado con el password del usuario
-    res.json({token: generarWTJ(usuario.id)}); // genera el token y lo envia
+    // autenticar el usuario 
+    res.json({ //envia los datos del usuario
+
+      _id: usuario.id,
+      nombre: usuario.nombre,
+      email: usuario.email,
+      token: generarWTJ(usuario.id)
+    }); // genera el token y lo envia
   } else {
     const error = new Error("password incorrecto"); //crea un nuevo error
     return res.status(403).json({ msg: error.message }); //envia un mensaje de usuario no encontrado
   }
 }; 
+
+
 
 // funciones para recueprar contraseña de usuarios
 

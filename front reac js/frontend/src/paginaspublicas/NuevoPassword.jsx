@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Alerta from '../components/alerta';
+import Alerta from '../components/Alerta';
 import axios from "axios";
 
 function NuevoPass() {

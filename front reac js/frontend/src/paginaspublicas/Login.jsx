@@ -1,6 +1,6 @@
 import { useState } from "react";
 import {Link,useNavigate} from 'react-router-dom' // para manejar las rutas de la aplicacion en login  mejora el performance en lugar de a
-import Alerta from '../components/alerta';
+import Alerta from '../components/Alerta';
 import useAuth from '../hook/useAuth';
 import axios from 'axios';
 

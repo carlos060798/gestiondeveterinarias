@@ -7,6 +7,7 @@ import ConfirmarCuenta from "./paginaspublicas/Confirmarcuenta";
 import NuevoPass from "./paginaspublicas/NuevoPassword";
 // import AuthContext  se genera la propagacion de  los datos la autenticacion
 import { AuthProvaider } from "./context/AuthProvider";
+import { PacientesProvaider } from "./context/PacienteProvaider";
 import Rutaprotegida from "./layaut/RutaProtegida";
 import AdministarPaciente from "./paginaspublicas/AdministradorPaciente";
 function App() {
@@ -14,6 +15,7 @@ function App() {
     <>
       <Router>
        <AuthProvaider>
+        <PacientesProvaider>
         <Routes>
           <Route path="/" element={<Autlayaut />}>
             <Route index element={<Login />} />
@@ -27,6 +29,7 @@ function App() {
               <Route index element={<AdministarPaciente/>}/>
            </Route>
         </Routes>
+        </PacientesProvaider>
         </AuthProvaider>
       </Router>
     </>

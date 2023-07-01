@@ -1,6 +1,6 @@
 import{Link} from 'react-router-dom';
 import { useState } from 'react';
-import Alerta from '../components/alerta';
+import Alerta from '../components/Alerta';
 import axios from 'axios';  
 
 

@@ -6,7 +6,7 @@ function AdministarPaciente() {
     const [mostrarFormulario, setMostarFormulario] = useState(false) //para mostrar el formulario
     return (  <>
       <div className="flex flex-col  md:flex-row">
-        <button type="button" className=" bg-indigo-600  text-white font-bold  uppercase mx-10  p-3 rounded-md mt-10 md:hidden"
+        <button type="button" className=" bg-indigo-600  text-white  uppercase mx-10  p-3 rounded-md mt-10 md:hidden"
         onClick={()=>setMostarFormulario(!mostrarFormulario)}>
             {mostrarFormulario ? "Ocultar Formulario" : "Mostrar Formulario"}
 

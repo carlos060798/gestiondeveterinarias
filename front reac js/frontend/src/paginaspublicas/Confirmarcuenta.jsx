@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom"; // importamos el hook useParams para obtener los parametros de la url
 import axios from "axios";
-import Alerta from "../components/alerta";
+import Alerta from "../components/Alerta";
 
 function ConfirmarCuenta() {
   const [cuentaConfirmada, setCuentaConfirmada] = useState(false); // state para saber si la cuenta esta confirmada o no

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Alerta from "./Alerta";
 import usePacientes from "../hook/usePacientes";
 
@@ -10,8 +10,22 @@ function FormularioPaciente() {
   const [sintomas, setSintomas] = useState("");
 
   const [alerta, setAlerta] = useState({});
+  const [id, setId] = useState("");
 
-  const { GuardarPaciente } = usePacientes();
+  const { GuardarPaciente,paciente } = usePacientes();
+  
+  useEffect(() => {
+    if(paciente?.nombre){
+      setNombre(paciente.nombre)
+      setPropietario(paciente.propietario)
+      setEmail(paciente.email)
+      setFecha(paciente.fecha)
+      setSintomas(paciente.sintomas)
+      setId(paciente._id)
+    }
+  }, [paciente]);
+
+  const { msg } = alerta;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -128,11 +142,12 @@ function FormularioPaciente() {
 
         <input
           type="submit"
-          value="Agregar Paciente"
+          value={id ?  "Guardar Cambios":"Agregar Paciente"}
           className="bg-indigo-600 w-full mt-5 p-3 text-white uppercase hover:bg-indigo-700 cursor-pointer
             transition duration-300 ease-in-out"
         />
-      </form>
+      </form> 
+    {msg && <Alerta alerta={alerta}/>}
     </>
   );
 }

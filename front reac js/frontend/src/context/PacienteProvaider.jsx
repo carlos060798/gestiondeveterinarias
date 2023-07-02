@@ -37,7 +37,6 @@ const PacientesProvaider = ({ children }) => {
   const GuardarPaciente = async (paciente) => {
     //funcion para guardar los pacientes
     const token = localStorage.getItem("token"); //obtenemos el token del localstorage
-    console.log(paciente);
     const config = {
       //configuracion para el axios
       headers: {
@@ -75,6 +74,29 @@ const PacientesProvaider = ({ children }) => {
     //funcion para editar los pacientes
     setPaciente(paciente); //agregamos el paciente al state
   };
+
+  const EliminarPaciente = async  (id) => {
+    const  confirmar= confirm('¿Estas seguro de eliminar el paciente?');
+    if(confirmar){
+      try{
+        const token = localStorage.getItem("token"); //obtenemos el token del localstorage
+        const config = {
+          //configuracion para el axios
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+        const url = `http://localhost:4000/api/pacientes/${id}`;
+        const {data} = await axios.delete(url, config);
+        const pacientesActualizados = pacientes.filter(pacientestate => pacientestate._id !== id);
+        setPacientes(pacientesActualizados);
+      } catch (err) {
+        console.log(err.response.data.msg);
+      }
+    }
+  }
+  
   return (
     <PacientesContext.Provider
       value={{
@@ -82,6 +104,7 @@ const PacientesProvaider = ({ children }) => {
         paciente,
         GuardarPaciente,
         EditaPaciente,
+        EliminarPaciente,
       }}
     >
       {children}

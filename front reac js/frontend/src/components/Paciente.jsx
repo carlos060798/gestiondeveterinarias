@@ -2,11 +2,12 @@ import usePacientes from "../hook/usePacientes";
 
 
 function Paciente({ paciente }) {
-  const { EditaPaciente } = usePacientes();
+  const { EditaPaciente,EliminarPaciente } = usePacientes();
   const { nombre, propietario, fecha, email, sintomas, _id } = paciente;
   const formatearFecha = (fecha) => {
     //  funcion para formatear la fecha
     const nuevaFecha = new Date(fecha);
+    nuevaFecha.setMinutes(nuevaFecha.getMinutes() + nuevaFecha.getTimezoneOffset()); //ajusta la hora a la zona horaria
     return new Intl.DateTimeFormat("es-MX", { dateStyle: "long" }).format(
       nuevaFecha
     );
@@ -55,7 +56,7 @@ function Paciente({ paciente }) {
           <button
             type="button"
             className="bg-red-500 hover:bg-red-600 px-5 py-2 rounded-lg text-white font-bold uppercase"
-             
+             onClick={() => EliminarPaciente(_id)}
          >
             Eliminar
           </button>

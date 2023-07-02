@@ -1,45 +1,47 @@
-import {useState} from  "react"
+import { useState } from "react";
 import Alerta from "./Alerta";
 import usePacientes from "../hook/usePacientes";
 
 function FormularioPaciente() {
-  const [NombreMascota, setNombreMascota] = useState("");
-  const [NombrePropietario, setNombrePropietario] = useState("");
-  const [CorreoPropietario, setCorreoPropietario] = useState("");
-  const [FechaAlta, setFechaAlta] = useState("");
-  const [Sintomas, setSintomas] = useState("");
+  const [nombre, setNombre] = useState("");
+  const [propietario, setPropietario] = useState("");
+  const [email, setEmail] = useState("");
+  const [fecha, setFecha] = useState("");
+  const [sintomas, setSintomas] = useState("");
 
-  const [alerta, setAlerta] = useState({})
+  const [alerta, setAlerta] = useState({});
 
-  const {GuardarPaciente}=usePacientes()
-    
+  const { GuardarPaciente } = usePacientes();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if ([NombreMascota,NombrePropietario,CorreoPropietario,FechaAlta  ,Sintomas].includes("")) {
+    if ([nombre, propietario, email, fecha, sintomas].includes("")) {
       setAlerta({
-       
-        msg:"Todos los campos son obligatorios",
-        error: true
-      })
-      return
+        msg: "Todos los campos son obligatorios",
+        error: true,
+      });
+      return;
     }
     setAlerta({});
+
     GuardarPaciente({
-      NombreMascota,
-      NombrePropietario,
-      CorreoPropietario,
-      FechaAlta,
-      Sintomas,
+      nombre,
+      propietario,
+      email,
+      fecha,
+      sintomas,
     });
-  }
+  };
   return (
     <>
       <p className="text-lg text-center mb-10">
         Crea tus Pacientes y {""}
         <span className="text-indigo-600 font-bold">Administralos</span>
       </p>
-      <form className="bg-white py-10 px-5  mb-10 lg:mb-0  shadow-md rounded-md" onSubmit={handleSubmit}>
+      <form
+        className="bg-white py-10 px-5  mb-10 lg:mb-0  shadow-md rounded-md"
+        onSubmit={handleSubmit}
+      >
         <div className="mb-5">
           <label
             htmlFor="mascota
@@ -53,8 +55,8 @@ function FormularioPaciente() {
             type="text"
             placeholder="Nombre de la Mascota"
             className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounder-md"
-            value={NombreMascota}
-            onChange={(e) => setNombreMascota(e.target.value)}
+            value={nombre}
+            onChange={(e) => setNombre(e.target.value)}
           />
         </div>
         <div className="mb-5">
@@ -70,8 +72,8 @@ function FormularioPaciente() {
             type="text"
             placeholder="Nombre Propietario"
             className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounder-md"
-            value={NombrePropietario}
-            onChange={(e) => setNombrePropietario(e.target.value)}
+            value={propietario}
+            onChange={(e) => setPropietario(e.target.value)}
           />
         </div>
         <div className="mb-5">
@@ -87,9 +89,8 @@ function FormularioPaciente() {
             type="email"
             placeholder="correo@gmail.com"
             className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounder-md"
-            value={CorreoPropietario}
-            onChange={(e) => setCorreoPropietario(e.target.value)}
-
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className="mb-5">
@@ -104,8 +105,8 @@ function FormularioPaciente() {
             id="fecha"
             type="date"
             className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounder-md"
-            value={FechaAlta}
-            onChange={(e) => setFechaAlta(e.target.value)}
+            value={fecha}
+            onChange={(e) => setFecha(e.target.value)}
           />
         </div>
         <div className="mb-5">
@@ -118,21 +119,19 @@ function FormularioPaciente() {
           </label>
           <textarea
             id="sintomas"
-             placeholder="Describe los sintomas"
+            placeholder="Describe los sintomas"
             className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounder-md"
-            value={Sintomas}
+            value={sintomas}
             onChange={(e) => setSintomas(e.target.value)}
           />
         </div>
-       
-          <input
-            
-            type="submit"
-            value="Agregar Paciente"
-            className="bg-indigo-600 w-full mt-5 p-3 text-white uppercase hover:bg-indigo-700 cursor-pointer
+
+        <input
+          type="submit"
+          value="Agregar Paciente"
+          className="bg-indigo-600 w-full mt-5 p-3 text-white uppercase hover:bg-indigo-700 cursor-pointer
             transition duration-300 ease-in-out"
-          />
-      
+        />
       </form>
     </>
   );

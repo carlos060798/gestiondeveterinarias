@@ -12,18 +12,20 @@ const PacientesProvaider = ({children}) => {
     const [pacientes, setPacientes] = useState([])
     const GuardarPaciente= async(paciente)=>{
         try {
-            const token= localStorage.getItem('token') 
-             
+            const token= localStorage.getItem('token')             
             const  config={
                 headers:{
                     "Content-Type":"application/json",
                     Authorization:`Bearer ${token}`
                 }
             }
-            const url = "http://localhost:4000/api/paciente";
-            const {data}= await axios.post(url, paciente, config);
-            console.log(data)
 
+            const url = "http://localhost:4000/api/pacientes";
+
+           const {data}= await axios.post(url, paciente, config);
+              console.log(data)
+              console.log(paciente)
+            
            // setAlerta({ msg: "Cuenta creada correctamentamente", error: false });
           } catch (err) {
              console.log(err.response.data.msg)

@@ -10,7 +10,7 @@ function FormularioPaciente() {
   const [sintomas, setSintomas] = useState("");
 
   const [alerta, setAlerta] = useState({});
-  const [id, setId] = useState("");
+  const [id, setId] = useState(null);
 
   const { GuardarPaciente,paciente } = usePacientes();
   
@@ -36,15 +36,26 @@ function FormularioPaciente() {
       });
       return;
     }
-    setAlerta({});
-
+  
     GuardarPaciente({
       nombre,
       propietario,
       email,
       fecha,
       sintomas,
+      id
     });
+
+    setAlerta({
+      msg: " Guardado Correctamente",
+
+    });
+    setNombre("");
+    setPropietario("");
+    setEmail("");
+    setFecha("");
+    setSintomas("");
+    setId("");
   };
   return (
     <>

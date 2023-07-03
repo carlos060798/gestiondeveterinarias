@@ -6,11 +6,9 @@ function Paciente({ paciente }) {
   const { nombre, propietario, fecha, email, sintomas, _id } = paciente;
   const formatearFecha = (fecha) => {
     //  funcion para formatear la fecha
-    const nuevaFecha = new Date(fecha);
+    const nuevaFecha = new Date(fecha); // crea un objeto de tipo fecha
     nuevaFecha.setMinutes(nuevaFecha.getMinutes() + nuevaFecha.getTimezoneOffset()); //ajusta la hora a la zona horaria
-    return new Intl.DateTimeFormat("es-MX", { dateStyle: "long" }).format(
-      nuevaFecha
-    );
+    return new Intl.DateTimeFormat("es-MX", { dateStyle: "long" }).format( nuevaFecha); // retorna la fecha formateada
   };
   return (
     <>

@@ -17,6 +17,7 @@ const {setAuth}=useAuth();
 const {msg}=alerta;
 
 const navigate=useNavigate(); // hook para manejar las rutas de la aplicacion
+
 const handleLogin = async(e)=>{ // funcion para manejar el login
    e.preventDefault();
    

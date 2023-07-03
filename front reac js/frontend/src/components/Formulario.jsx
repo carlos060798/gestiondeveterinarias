@@ -14,7 +14,7 @@ function FormularioPaciente() {
 
   const { GuardarPaciente,paciente } = usePacientes();
   
-  useEffect(() => {
+  useEffect(() => { // para editar paciente
     if(paciente?.nombre){
       setNombre(paciente.nombre)
       setPropietario(paciente.propietario)
@@ -29,14 +29,14 @@ function FormularioPaciente() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if ([nombre, propietario, email, fecha, sintomas].includes("")) {
+    if ([nombre, propietario, email, fecha, sintomas].includes("")) { // validamos que los campos no esten vacios
       setAlerta({
         msg: "Todos los campos son obligatorios",
         error: true,
       });
       return;
     }
-  
+    // para guardar paciente
     GuardarPaciente({
       nombre,
       propietario,
@@ -50,6 +50,7 @@ function FormularioPaciente() {
       msg: " Guardado Correctamente",
 
     });
+     // limpiar formulario
     setNombre("");
     setPropietario("");
     setEmail("");

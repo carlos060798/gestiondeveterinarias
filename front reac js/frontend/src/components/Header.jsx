@@ -15,7 +15,7 @@ function Header() {
               Pacientes
             </Link>
             <Link
-              to="/admin"
+              to="/admin/perfil"
               className="text-white font-bold text-sm uppercase"
             >
               Perfil

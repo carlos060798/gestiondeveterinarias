@@ -10,6 +10,8 @@ import { AuthProvaider } from "./context/AuthProvider";
 import { PacientesProvaider } from "./context/PacienteProvaider";
 import Rutaprotegida from "./layaut/RutaProtegida";
 import AdministarPaciente from "./paginaspublicas/AdministradorPaciente";
+import EditarPerfil from "./paginaspublicas/EditarPerfil";
+import CambiarPasword from "./paginaspublicas/CambiarPasword";
 function App() {
   return (
     <>
@@ -27,6 +29,8 @@ function App() {
           </Route>
            <Route path="/admin" element={<Rutaprotegida/>} >
               <Route index element={<AdministarPaciente/>}/>
+              <Route path="/admin/perfil" element={<EditarPerfil/>}/>
+              <Route path="/admin/cambiar-password" element={<CambiarPasword/>}/>
            </Route>
         </Routes>
         </PacientesProvaider>

@@ -16,11 +16,11 @@ function NuevoPass() {
       try {
         // consulta ala Api para validar el token
         const url = `http://localhost:4000/api/veterinario/olvidarPassword/${token}`;
-        await axios(url);
+        await axios(url); // hacemos la peticion al backend
         setAlerta({
           msg: "Ingresa  la nueva Contraseña",
         }); 
-        setTokenValido(true);
+        setTokenValido(true); // si todo sale bien cambiamos el state de token valido a truef
       } catch (error) {
         setAlerta({
           msg: "Hubo un error  con  el enlace",
@@ -36,15 +36,17 @@ function NuevoPass() {
 // funcion que maneja el cambio de contraseña 
     const handleCambiarPasword = async (e) => {
       e.preventDefault();
+      // validamos que la contraseña no este vacia
      if(password.length<6){
         setAlerta({msg:'la contraseña debe tener al menos 6 caracteres',error:true});
      }
-     try{
+
+     try{ // hacemos la peticion al backend para cambiar la contraseña
      const url =`http://localhost:4000/api/veterinario/olvidarPassword/${token}`
         const {data}= await axios.post(url,{password});
 
         setAlerta({msg:data.msg});
-        setPasswordModificado(true);
+        setPasswordModificado(true); // cambiamos el state de la contraseña modificada a true
      } catch(error){
         setAlerta({msg:error.response.data.msg,error:true});
      }

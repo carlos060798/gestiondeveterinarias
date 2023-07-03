@@ -12,17 +12,15 @@ const [email,setEmail]=useState('');
 const [alerta,setAlerta]=useState({});
 
 
-const handleenviarEmail=async(e)=>{
+const handleenviarEmail=async(e)=>{ // funcion para enviar el email
     e.preventDefault();
-    console.log('enviando datos...');
-    if(email=== ""|| email.length<7){
+    if(email=== ""|| email.length<7){ // validamos que el email no este vacio
         setAlerta({msg:'el email es obligatorio',error:true});
         return;
-    }
-     try {
+    }  
+     try { // hacemos la peticion post con axios
         const url='http://localhost:4000/api/veterinario/olvidarPassword';
-        const  {data} = await axios.post(url,{email});
-         console.log(data);
+        const  {data} = await axios.post(url,{email}); 
         setAlerta({msg:data.msg,});
      } catch (err) {
         setAlerta({msg:err.response.data.msg,error:true});

@@ -35,6 +35,7 @@ const PacientesProvaider = ({ children }) => {
   }, []);
 
   const GuardarPaciente = async (paciente) => {
+
     //funcion para guardar los pacientes
     const token = localStorage.getItem("token"); //obtenemos el token del localstorage
     const config = {
@@ -62,22 +63,22 @@ const PacientesProvaider = ({ children }) => {
         const { data } = await axios.post(url, paciente, config); //hacemos la peticion post con axios
         const { createdAt, updatedAt, __v, ...pacienteNuevo } = data; //desestructuramos la respuesta de la peticion post
         setPacientes([pacienteNuevo, ...pacientes]); //agregamos el nuevo paciente al state
-
-        // setAlerta({ msg: "Cuenta creada correctamentamente", error: false });
       } catch (err) {
         console.log(err.response.data.msg);
-        //setAlerta({ msg:err.response.data.msg, error:true });
       }
     }
   };
+  
+   //funcion para editar los pacientes
   const EditaPaciente = (paciente) => {
     //funcion para editar los pacientes
     setPaciente(paciente); //agregamos el paciente al state
   };
 
+  //funcion para eliminar los pacientes
   const EliminarPaciente = async  (id) => {
-    const  confirmar= confirm('¿Estas seguro de eliminar el paciente?');
-    if(confirmar){
+    const  confirmar= confirm('¿Estas seguro de eliminar el paciente?'); //confirmamos si se quiere eliminar el paciente
+    if(confirmar){ //si se confirma la eliminacion
       try{
         const token = localStorage.getItem("token"); //obtenemos el token del localstorage
         const config = {
@@ -86,11 +87,11 @@ const PacientesProvaider = ({ children }) => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-        }
+        }  
         const url = `http://localhost:4000/api/pacientes/${id}`;
-        const {data} = await axios.delete(url, config);
-        const pacientesActualizados = pacientes.filter(pacientestate => pacientestate._id !== id);
-        setPacientes(pacientesActualizados);
+        const {data} = await axios.delete(url, config); //hacemos la peticion delete con axios
+        const pacientesActualizados = pacientes.filter(pacientestate => pacientestate._id !== id); //recorremos los pacientes para buscar el que se elimino
+        setPacientes(pacientesActualizados); //actualizamos el state de los pacientes
       } catch (err) {
         console.log(err.response.data.msg);
       }

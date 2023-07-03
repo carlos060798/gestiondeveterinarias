@@ -13,20 +13,20 @@ function Registar() {
   // state para alertas
   const [alerta, setAlerta] = useState({});
 
-  // funcion para enviar datos de registro handlesubmit
+  // funcion para enviar datos de registro de nuevo usuario
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log("enviando datos...");
+    e.preventDefault(); 
+    // validamos que los campos no esten vacios
     if ([nombre, email, password, repetirPassword].includes("")) {
       setAlerta({ msg: "todos los campos son obligatorios", error: true });
 
       return;
     }
-    if (password !== repetirPassword) {
+    if (password !== repetirPassword) { // validamos que las contraseñas sean iguales
       setAlerta({ msg: "las contraseñas no son iguales", error: true });
       return;
     }
-    if (password.length < 6) {
+    if (password.length < 6) { // validamos que la contraseña tenga al menos 6 caracteres
       setAlerta({
         msg: "la contraseña debe tener al menos 6 caracteres",
         error: true,
@@ -37,7 +37,7 @@ function Registar() {
 
     // crear el usuario en la api
 
-    try {
+    try { // hacemos la peticion post con axios
       const url = "http://localhost:4000/api/veterinario";
       await axios.post(url, { nombre, email, password });
       setAlerta({ msg: "Cuenta creada correctamentamente", error: false });

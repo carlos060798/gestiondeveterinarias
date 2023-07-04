@@ -2,6 +2,7 @@
 
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
+import useAuth from "../hook/useAuth";
 
 const PacientesContext = createContext(); //context  para los componetes que nesesiten datos de los pacientes
 export default PacientesContext;
@@ -9,6 +10,7 @@ export default PacientesContext;
 const PacientesProvaider = ({ children }) => {
   const [pacientes, setPacientes] = useState([]); //state para los pacientes
   const [paciente, setPaciente] = useState({}); //state para un paciente
+  const { auth } = useAuth(); //obtenemos los datos del usuario del estado global
 
   useEffect(() => {
     //useEffect para obtener los pacientes cuando se monte el componete
@@ -32,7 +34,7 @@ const PacientesProvaider = ({ children }) => {
       }
     };
     obtenerPacientes();
-  }, []);
+  }, [auth]); //pasamos el auth como dependencia para que se ejecute cuando se actualice el estado global
 
   const GuardarPaciente = async (paciente) => {
 

@@ -47,9 +47,40 @@ function AuthProvaider({children}) {
     localStorage.removeItem('token'); // removemos el token del localstorage
     setAuth({}); // limpiamos el estado global
  
+  } 
+  
+  const actualizarUsuario=async (datos)=>{ // funcion para actualizar los datos del usuariop
+    console.log(datos);
+    const token = localStorage.getItem("token"); // obtenemos el token del localstorage
+    if (!token){
+      setCargado(false); // cambiamos el estado para saber que ya se hizo la peticion
+      return
+    }  // si no hay token no hacemos nada
+    const config = { // creamos la configuracion para enviar el token por headers
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+   
+    }
+    try {
+      const url=`http://localhost:4000/api/veterinario/perfil/${datos._id}`
+      const {data}= await axios.put(url,datos,config); // hacemos la peticion al backend
+    
+       return {
+        msg: 'Datos actualizados correctamente',
+       }
+    } catch (error) {
+      return {
+        msg: error.response.data.msg,
+        error: true,
+      }
+    }
   }
     return ( <>
-       <AuthContext.Provider value={{auth,setAuth,cargando,cerrarSesion}}> 
+       <AuthContext.Provider value={{auth,setAuth,cargando,cerrarSesion,
+        actualizarUsuario
+      }}> 
          {children}
        </AuthContext.Provider>
     </> );

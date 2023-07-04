@@ -8,7 +8,8 @@ import {
   olvidarContraseña,
   Comprobartoken,
   newPassword,
-  ActualizarPerfil
+  ActualizarPerfil,
+  ActualizarPassword
 } from "../controllers/veterinarioController.js";
 import checkAuth from "../middleware/authMiddleware.js";
 const router = express.Router();
@@ -24,4 +25,5 @@ router.route("/olvidarPassword/:token").get(Comprobartoken).post(newPassword ); 
 // rutas de veterinario privadas 
 router.get("/perfil", checkAuth, Perfil); //
 router.put("/perfil/:id",checkAuth, ActualizarPerfil); //ruta para actualizar el perfil de un veterinario
+router.put("/actualizar-password",checkAuth, ActualizarPassword); //ruta para actualizar el perfil de un veterinario
 export default router;

@@ -204,6 +204,34 @@ catch(error){
   console.log(error);
 };
 }
+
+const ActualizarPassword = async (req, res) => {
+  // leer daros del usuario
+  const {id} = req.veterinario;
+  const { password,newpassword} = req.body;
+  console.log(id);
+  console.log({password,newpassword});
+ // comprobar el password actual
+  
+ const veterinario = await Veterinario.findById(id) //busca un usuario con el mismo id
+ console.log(veterinario);
+//si el usuario no existe
+if(!veterinario){
+  const error = new Error("Hubo  un error"); //crea un nuevo error
+  return res.status(400).json({ msg: error.message }); //envia un mensaje de usuario no encontrado
+}
+// comprobar el password actual
+if(await veterinario.compararContraseña(password)){
+  // almacenar el nuevo password
+  veterinario.password = newpassword;
+  await veterinario.save();
+  res.json({msg:"password actualizado"});
+} else{
+  const error = new Error("password incorrecto"); //crea un nuevo error
+  return res.status(403).json({ msg: error.message }); //envia un mensaje de usuario no encontrado
+}
+
+}
 export {
   Registrar,
   Perfil,
@@ -213,4 +241,5 @@ export {
   Comprobartoken,
   newPassword,
   ActualizarPerfil,
+  ActualizarPassword
 };
